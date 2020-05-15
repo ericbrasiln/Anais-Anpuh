@@ -30,10 +30,12 @@ for anais in itens:
             print(urlbase + linkPdf)
         try:
             #TENTA EXECUTAR ISSO
-            link = paginaDosAnais.find('ul', {'class': 'title:"Próx"'})['href']
+            proximaPagina = paginaDosAnais.find(title='Próx')
+            if proximaPagina == True:
+                link = proximaPagina['href']
             print('Passando para a próxima página...')
         except:
             #SE DER ERRO VEM PRA CÁ
             acabou = True
-            print('Página não foi encontrada! Fim do código.')
+            print('Página não foi encontrada!')
             

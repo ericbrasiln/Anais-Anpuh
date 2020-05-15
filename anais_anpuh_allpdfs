@@ -1,0 +1,29 @@
+from urllib import request
+from bs4 import BeautifulSoup
+import re
+import os
+import urllib
+
+# connect to website and get list of all pdfs
+urlbase="https://anpuh.org.br/documentos/anais/category-items/1-anais-simposios-anpuh/{}"
+snh = '35-snh29'
+url = urlbase.format(snh)
+response = request.urlopen(url).read()
+soup= BeautifulSoup(response, "html.parser")     
+pasta = '/home/ebn/Documentos/GitHub/Anais  Anpuh/{}/'.format(snh)
+os.makedirs(pasta)
+
+#find all paper boxes
+paperBoxes = soup.find_all(class_='has-context')
+
+for paper in paperBoxes:    
+    title = paper.h2.text
+    title = title.strip().lower()
+    # find all pdf links
+    link = paper.find('a', href=re.compile(r'(.pdf)'))
+    fullLink = "https://anpuh.org.br" + link['href']
+    print(fullLink)
+    fullName = pasta + title.replace(' ','_') + '.pdf'
+    print(fullName)
+    request.urlretrieve(fullLink, fullName)
+    
