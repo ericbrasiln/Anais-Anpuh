@@ -5,8 +5,8 @@ import os
 import urllib
 
 # connect to website and get list of all pdfs
-urlbase="https://anpuh.org.br/index.php/documentos/anais/category-items/1-anais-simposios-anpuh/5-snh04?start=260"
-snh = '5-snh04'
+urlbase="https://anpuh.org.br/index.php/documentos/anais/category-items/1-anais-simposios-anpuh/35-snh29?start=1199"
+snh = '35-snh29'
 pasta = '/home/ebn/Documentos/GitHub/Anais  Anpuh/{}/'.format(snh)
 os.makedirs(pasta)
 acabou = False
@@ -23,20 +23,24 @@ while acabou == False:
         title = title.strip().lower().replace('/','-')
         # find all pdf links
         print('Encontrando link do paper...')
-        link = paper.find('a', href=re.compile(r'(.pdf)'))
-        fullLink = "https://anpuh.org.br" + link['href']
-        fullName = pasta + title.replace(' ','_') + '.pdf'
-        print('Salvando o pdf na pasta...')
-        request.urlretrieve(fullLink, fullName)
+        try:
+            link = paper.find('a', href=re.compile(r'(.pdf)'))
+            fullLink = "https://anpuh.org.br" + link['href']
+            fullName = pasta + title.replace(' ','_') + '.pdf'
+            print('Salvando o pdf na pasta...')
+            request.urlretrieve(fullLink, fullName)
+        except:
+            link = paper.find('a', href=re.compile(r'(.pdf)'))
+            link = None
+            print('Paper sem pdf disponível para download.')
     menuFinal = soup.find(class_='pagination')
     print('Procurando pŕoxima página...')
-    proximaPag = menuFinal.find('a', title=re.compile(r'(Próx)'))
-    linkProximaPag = proximaPag['href']
-    print('https://anpuh.org.br' + linkProximaPag)
-    
     try:
+        proximaPag = menuFinal.find('a', title=re.compile(r'(Próx)'))
+        linkProximaPag = proximaPag['href']
+        print('https://anpuh.org.br' + linkProximaPag)
         urlbase = 'https://anpuh.org.br' + linkProximaPag
-    except:
-        acabou = True
+    except:        
+        acabou = True    
         print("Final das Páginas de Papers desse evento.")
-print('Final do código')
+              
