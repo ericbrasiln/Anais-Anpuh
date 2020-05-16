@@ -1,0 +1,63 @@
+from urllib.request import Request, urlopen, urlretrieve
+from bs4 import BeautifulSoup
+from urllib import request
+import re
+import os
+import urllib
+
+dicionario = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36'}
+urlbase = 'https://anpuh.org.br'
+url = 'https://anpuh.org.br/index.php/documentos/anais'
+acabou = False
+
+# Acessa a página inicial dos Anais.
+reqopen = Request(url, headers=dicionario)
+req = urlopen(reqopen)
+bs = BeautifulSoup(req.read(), 'lxml')
+
+# Define e cria a pasta para salvar cada evento.
+pasta = '/home/ebn/Documentos/GitHub/Anais  Anpuh/pdf/'
+os.makedirs(pasta)
+
+#Define os links para cada evento.
+boxAnais = bs.find(id='cobalt-section-1')
+links = boxAnais.find_all('a', href=re.compile(r'(1-anais-simposios-anpuh/)'))
+for linkAnais in links:
+    linkEvento = linkAnais['href']     
+    linkEventoFinal = urlbase + linkEvento    
+    numEvento = linkEvento.replace('index.php/documentos/anais/category-items/1-anais-simposios-anpuh/','')    
+    # Acessa as páginas de cada evento e raspa os pdfs.
+    while acabou == False:
+        response = request.urlopen(linkEventoFinal).read()
+        soup= BeautifulSoup(response, "html.parser")             
+        #Encontra a caixa com os papers
+        paperBoxes = soup.find_all(class_='has-context')
+        print('Encontrando todos os papers da página...')
+        for paper in paperBoxes:    
+            # Encontra os títulos de cada paper.
+            title = paper.h2.text
+            title = title.strip().lower().replace('/','-')
+            # Encontra os links para os pdfs.
+            print('Encontrando link do paper...')
+            try:
+                link = paper.find('a', href=re.compile(r'(.pdf)'))
+                fullLink = "https://anpuh.org.br" + link['href']
+                fullName = pasta + numEvento + '-' + title.replace(' ','_') + '.pdf'
+                print('Salvando o pdf na pasta...')
+                request.urlretrieve(fullLink, fullName)
+            except:
+                link = paper.find('a', href=re.compile(r'(.pdf)'))
+                link = None
+                print('Paper sem pdf disponível para download.')
+        # Busca a próxima página de papers.
+        menuFinal = soup.find(class_='pagination')
+        print('Procurando pŕoxima página...')
+        try:
+            proximaPag = menuFinal.find('a', title=re.compile(r'(Próx)'))
+            linkProximaPag = proximaPag['href']
+            print('https://anpuh.org.br' + linkProximaPag)
+            linkEventoFinal = 'https://anpuh.org.br' + linkProximaPag
+        except:        
+            acabou = True    
+            print("Final das Páginas de Papers desse evento.")
+print('Raspagem completa.')                
