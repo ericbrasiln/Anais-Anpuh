@@ -8,7 +8,6 @@ import urllib
 dicionario = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36'}
 urlbase = 'https://anpuh.org.br'
 url = 'https://anpuh.org.br/index.php/documentos/anais'
-acabou = False
 
 # Acessa a página inicial dos Anais.
 reqopen = Request(url, headers=dicionario)
@@ -25,11 +24,13 @@ links = boxAnais.find_all('a', href=re.compile(r'(1-anais-simposios-anpuh/)'))
 for linkAnais in links:
     linkEvento = linkAnais['href']     
     linkEventoFinal = urlbase + linkEvento    
-    numEvento = linkEvento.replace('index.php/documentos/anais/category-items/1-anais-simposios-anpuh/','')    
+    numEvento = linkEvento.replace('index.php/documentos/anais/category-items/1-anais-simposios-anpuh/','')
+    acabou = False    
     # Acessa as páginas de cada evento e raspa os pdfs.
     while acabou == False:
         response = request.urlopen(linkEventoFinal).read()
-        soup= BeautifulSoup(response, "html.parser")             
+        soup= BeautifulSoup(response, "html.parser")
+        print(linkEventoFinal)             
         #Encontra a caixa com os papers
         paperBoxes = soup.find_all(class_='has-context')
         print('Encontrando todos os papers da página...')
@@ -44,7 +45,7 @@ for linkAnais in links:
                 fullLink = "https://anpuh.org.br" + link['href']
                 fullName = pasta + numEvento + '-' + title.replace(' ','_') + '.pdf'
                 print('Salvando o pdf na pasta...')
-                request.urlretrieve(fullLink, fullName)
+                #request.urlretrieve(fullLink, fullName)
             except:
                 link = paper.find('a', href=re.compile(r'(.pdf)'))
                 link = None
@@ -58,7 +59,6 @@ for linkAnais in links:
             print('https://anpuh.org.br' + linkProximaPag)
             linkEventoFinal = 'https://anpuh.org.br' + linkProximaPag
         except:                        
-            print("Final das Páginas de Papers desse evento.")
-            #aqui está o nó! como acessar o link do próximo evento (linkEventoFinal) que tá no primeiro for? Pensei em retirar eles do for, fazer uma lista com todos os links do de eventos. mas ainda assim não consego fazer aqui no try acessar um item específico da lista...        
+            print("Final das Páginas de Papers desse evento.")                  
             acabou = True
 print('Raspagem completa.')                
