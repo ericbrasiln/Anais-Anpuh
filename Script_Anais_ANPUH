@@ -59,6 +59,6 @@ for linkAnais in links:
             linkEventoFinal = 'https://anpuh.org.br' + linkProximaPag
         except:                        
             print("Final das Páginas de Papers desse evento.")
-            #aqui está o nó! como pegar o próximo link?            
+            #aqui está o nó! como acessar o link do próximo evento (linkEventoFinal) que tá no primeiro for? Pensei em retirar eles do for, fazer uma lista com todos os links do de eventos. mas ainda assim não consego fazer aqui no try acessar um item específico da lista...        
             acabou = True
 print('Raspagem completa.')                
