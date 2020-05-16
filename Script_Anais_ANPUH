@@ -57,7 +57,8 @@ for linkAnais in links:
             linkProximaPag = proximaPag['href']
             print('https://anpuh.org.br' + linkProximaPag)
             linkEventoFinal = 'https://anpuh.org.br' + linkProximaPag
-        except:        
-            acabou = True    
+        except:                        
             print("Final das Páginas de Papers desse evento.")
+            #aqui está o nó! como pegar o próximo link?            
+            acabou = True
 print('Raspagem completa.')                
