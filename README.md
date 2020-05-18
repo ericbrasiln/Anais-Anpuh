@@ -1,13 +1,15 @@
 ![LOGO-HISTÓRIA](logos/LOGO-HISTÓRIA-BA-vertical.png)
 ![LOGO-UNILAB](logos/unilab.png)
-![LOGO-LABHDUFBA](logos/labhd.png)
+
 # Script Anais-Anpuh
+
 *Projeto de script para web scraping da página de [Anais da Anpuh](https://anpuh.org.br/index.php/documentos/anais).
  Parte de projeto de História Digital desenvolvido no colegiado do curso de Licenciatura em História (CCLHM) da Unilab, campus dos Malês, sob coordenação do professor [Eric Brasil](https://ericbrasiln.github.io/) em parceria com o [Laboratório de Humanidades Digitais da Ufba](http://labhd.ufba.br/).*
 
 *O Script Anais-Anpuh realiza a raspagem dos papers em pdf de todos os Simpósios Nacionais da Anpuh entre 1963 até 2019.*
 
 **A ferramenta foi desenvolvida apenas para pesquisas acadêmicas, sem fins lucrativos.**
+
 ##
 
 Esse script foi pensado como uma ferramenta metodológica da pesquisa em humanidades
@@ -76,3 +78,5 @@ O script está funcionando pereitamente. Qualquer alteração no site percebida 
 MIT licensed
 
 Copyright (C) 2020 Eric Brasil, Gabriel Andrade
+
+![LOGO-LABHDUFBA](logos/labhd.png)
