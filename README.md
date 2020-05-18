@@ -1,3 +1,6 @@
+![LOGO-HISTÓRIA](logos/LOGO-HISTÓRIA-BA-vertical.png)
+![LOGO-UNILAB](logos/unilab.png)
+![LOGO-LABHDUFBA](logos/labhd.png)
 # Script Anais-Anpuh
 *Projeto de script para web scraping da página de [Anais da Anpuh](https://anpuh.org.br/index.php/documentos/anais).
  Parte de projeto de História Digital desenvolvido no colegiado do curso de Licenciatura em História (CCLHM) da Unilab, campus dos Malês, sob coordenação do professor [Eric Brasil](https://ericbrasiln.github.io/) em parceria com o [Laboratório de Humanidades Digitais da Ufba](http://labhd.ufba.br/).*
