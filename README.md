@@ -1,4 +1,4 @@
-![LOGO-HISTÓRIA](logos/LOGO-HISTÓRIA-BA-vertical.png)
+![LOGO-HISTÓRIA](logos/LOGO-HISTÓRIA-BA-vertical-small.png)
 ![LOGO-UNILAB](logos/unilab.png)
 
 # Script Anais-Anpuh
