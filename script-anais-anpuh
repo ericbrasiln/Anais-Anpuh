@@ -12,10 +12,12 @@ reqopen = Request(url, headers=dicionario)
 req = urlopen(reqopen)
 bs = BeautifulSoup(req.read(), 'lxml')
 # Define e cria a pasta para salvar cada evento.
+print('Criando pasta de salvamento...')
 pasta = os.path.join('Anais  Anpuh', 'pdf')
 if not os.path.exists(pasta):
     os.makedirs(pasta)
 #Define os links para cada evento.
+print('Criando a lista de eventos a partir da página principal...')
 boxAnais = bs.find(id='cobalt-section-1')
 links = boxAnais.find_all('a', href=re.compile(r'(1-anais-simposios-anpuh/)'))
 for linkAnais in links:
@@ -29,9 +31,7 @@ for linkAnais in links:
         soup= BeautifulSoup(response, "html.parser")             
         #Encontra a caixa com os papers
         paperBoxes = soup.find_all(class_='has-context')
-        print(linkEventoFinal)
         print('Encontrando todos os papers da página...')
-        print (numEvento)
         pastaEvento = os.path.join(pasta, numEvento[1:])
         if not os.path.exists(pastaEvento):
             os.makedirs(pastaEvento)
@@ -61,7 +61,8 @@ for linkAnais in links:
         try:
             proximaPag = menuFinal.find('a', title=re.compile(r'(Próx)'))
             linkProximaPag = proximaPag['href']
-            print('https://anpuh.org.br' + linkProximaPag)
+            print(numEvento)
+            print('Página encontrada: https://anpuh.org.br' + linkProximaPag)
             linkEventoFinal = 'https://anpuh.org.br' + linkProximaPag
         except:                        
             print("Final das Páginas de Papers desse evento.")
