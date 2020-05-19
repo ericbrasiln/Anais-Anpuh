@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/ericbrasiln/Anais-Anpuh/blob/master/logos/logos.png" width="50%"/></p>
+<p align="center"><img src="https://github.com/ericbrasiln/Anais-Anpuh/blob/master/logos/logos.png"/></p>
 
 # Script Anais-Anpuh
 
