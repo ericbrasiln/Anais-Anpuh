@@ -1,5 +1,4 @@
-![LOGO-HISTÓRIA](logos/LOGO-HISTÓRIA-BA-vertical-small.png)
-![LOGO-UNILAB](logos/Logo-Unilab-horizontal-para-fundo-claro.png)
+<p align="center"><img src="https://github.com/ericbrasiln/Anais-Anpuh/blob/master/logos/LOGO-HIST%C3%93RIA-BA-vertical-small.png" width="25%"/> <img src="https://github.com/ericbrasiln/Anais-Anpuh/blob/master/logos/Logo-Unilab-horizontal-para-fundo-claro.png" width="22%"/></p>
 
 # Script Anais-Anpuh
 
@@ -78,5 +77,3 @@ O script está funcionando pereitamente. Qualquer alteração no site percebida 
 MIT licensed
 
 Copyright (C) 2020 Eric Brasil, Gabriel Andrade
-
-![LOGO-LABHDUFBA](logos/labhd.png)
