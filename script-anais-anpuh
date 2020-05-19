@@ -4,9 +4,13 @@ from urllib import request
 import re
 import os
 import urllib
+import pandas as pd
+
 dicionario = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36'}
 urlbase = 'https://anpuh.org.br'
 url = 'https://anpuh.org.br/index.php/documentos/anais'
+
+listaFinal =[]
 # Acessa a página inicial dos Anais.
 reqopen = Request(url, headers=dicionario)
 req = urlopen(reqopen)
@@ -33,6 +37,34 @@ for linkAnais in links:
         paperBoxes = soup.find_all(class_='has-context')
         print('Encontrando todos os papers da página...')
         pastaEvento = os.path.join(pasta, numEvento[1:])
+        print('Encontrando todos as informações dos papers da página...')
+        tabelas = soup.find_all(class_="text-overflow")
+        for tabela in tabelas:
+            informacoes = tabela.find_all('dt')
+            tipo = ""
+            evento = ""
+            ano = ""
+            autores = ""
+            linkArquivo = ""
+            for informacao in informacoes:
+                if informacao.text.strip() == "Tipo":
+                    tipo = informacao.find_next_sibling().text.strip()
+                    print (f"Tipo : {tipo}")
+                if informacao.text.strip() == "Evento":
+                    evento = informacao.find_next_sibling().text.strip()
+                    print (f"Evento : {evento}")
+                if informacao.text.strip() == "Ano":
+                    ano = informacao.find_next_sibling().text.strip()
+                    print (f"Ano : {ano}")
+                if informacao.text.strip() == "Arquivo":
+                    arquivo = informacao.find_next_sibling().a['href']
+                    linkArquivo = urlbase + arquivo
+                    print (f"Arquivo : {linkArquivo}")
+                if informacao.text.strip() == "Autor(es)":
+                    autores = informacao.find_next_sibling().text.strip()
+                    print (f"Autor(es) : {autores}")
+                listaInterna = [autores, tipo, evento, ano, linkArquivo]
+                listaFinal.append(listaInterna)
         if not os.path.exists(pastaEvento):
             os.makedirs(pastaEvento)
         for paper in paperBoxes:    
@@ -67,4 +99,7 @@ for linkAnais in links:
         except:                        
             print("Final das Páginas de Papers desse evento.")
             acabou = True
+print('Salvando arquivo .csv com todas as informações: autores/instituições, tipo, evento, ano, link do pdf')
+df = pd.DataFrame(listaFinal, columns=['Autor(es)/Instituições', 'Tipo', 'Evento', 'Ano', 'Link do Arquivo'])
+df.to_csv('anais-anpuh-infos.csv')
 print('Raspagem completa.')

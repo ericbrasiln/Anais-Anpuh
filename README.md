@@ -6,8 +6,10 @@
  Parte de projeto de História Digital desenvolvido no colegiado do curso de Licenciatura em História (CCLHM) da Unilab, campus dos Malês, sob coordenação do professor [Eric Brasil](https://ericbrasiln.github.io/) em parceria com o [Laboratório de Humanidades Digitais da Ufba](http://labhd.ufba.br/).*
 
 *O Script Anais-Anpuh realiza a raspagem dos papers em pdf de todos os Simpósios Nacionais da Anpuh entre 1963 até 2019.*
+___
 
 **A ferramenta foi desenvolvida apenas para pesquisas acadêmicas, sem fins lucrativos.**
+___
 
 ##
 
@@ -17,6 +19,7 @@ Defendemos a importância da apropriação, uso, desenvolvimento e aprimoramento
 
 É crescente o número de repositórios de fontes e dados on-line, assim como o acesso, busca, pesquisa e, muitas vezes, dependência de pesquisadores/as a eles.
 Os Simpósios Nacionais da Anpuh, que aconcetecem bienalmente, têm reunido importantes reflexões sobre as mais variadas perspectivas historiográficas. Por conseguinte, os anais de cada evento constituem um importante repositório para pesquisas nos mais variados campos de estudo.
+___
 
 ## Índice
 
@@ -68,8 +71,12 @@ Exemplo de como executar utilizando o terminal do Linux:
 
 ## Resultados
 
-O script retorna para o usuário todos os pdfs disponíveis em todas as páginas de todos os Simpósios Nacionais da Anpih desde 1963 até 2019. São criadas pastas com o número de cada evento para o armazenamento dos arquivos em .pdf.
-É importante notar que muitos papers não estão com pdf disponível no site, assim como nas edições mais antigas encontramos arquivos que contém vários papers num único pdf.
+O script retorna para o usuário **todos os pdfs disponíveis em todas as páginas de todos os Simpósios Nacionais da Anpih desde 1963 até 2019**. São criadas pastas com o número de cada evento para o armazenamento dos arquivos em PDF.
+
+É importante notar que muitos papers não estão com pdf disponível no site, assim como nas edições mais antigas encontramos arquivos que contém vários papers num único PDF.
+
+O script também gera um arquivo **CSV** (*comma-separated values*) contendo os seguintes valores para cada paper: Autor(es)/Instituições, Tipo, Evento, Ano, Link do Arquivo. Esse arquivo pode ser aberto como uma planilha e trabalhado em banco de dados.
+
 O script está funcionando pereitamente. Qualquer alteração no site percebida pelos usuários ou sugestão são bem vindas.
 
 ## Licença
