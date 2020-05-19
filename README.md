@@ -1,5 +1,3 @@
-<p align="center"><img src="https://github.com/ericbrasiln/Anais-Anpuh/blob/master/logos/LOGO-HIST%C3%93RIA-BA-vertical-small.png" width="25%"/> <img src="https://github.com/ericbrasiln/Anais-Anpuh/blob/master/logos/Logo-Unilab-horizontal-para-fundo-claro.png" width="22%"/></p>
-
 # Script Anais-Anpuh
 
 *Projeto de script para web scraping da página de [Anais da Anpuh](https://anpuh.org.br/index.php/documentos/anais).
@@ -76,4 +74,6 @@ O script está funcionando pereitamente. Qualquer alteração no site percebida 
 
 MIT licensed
 
-Copyright (C) 2020 Eric Brasil, Gabriel Andrade
+Copyright (C) 2020 [Eric Brasil](https://github.com/ericbrasiln), [Gabriel Andrade](https://github.com/gabrielsandrade)
+
+<p align="left"><img src="https://github.com/ericbrasiln/Anais-Anpuh/blob/master/logos/LOGO-HIST%C3%93RIA-BA-vertical-small.png" width="25%"/> <img src="https://github.com/ericbrasiln/Anais-Anpuh/blob/master/logos/Logo-Unilab-horizontal-para-fundo-claro.png" width="22%"/> <img src="https://github.com/ericbrasiln/Anais-Anpuh/blob/master/logos/labhd.png" width="15%"/></p>
