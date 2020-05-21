@@ -60,6 +60,14 @@ for linkAnais in links:
                     arquivo = informacao.find_next_sibling().a['href']
                     linkArquivo = urlbase + arquivo
                     print (f"Arquivo : {linkArquivo}")
+                if informacao.text.strip() == "PDF LINK":
+                    arquivo = informacao.find_next_sibling().a['href']
+                    if arquivo.startswith('https://') == True:
+                        linkArquivo = arquivo
+                        print (f"Arquivo : {linkArquivo}")
+                    else:
+                        linkArquivo = urlbase + arquivo
+                        print (f"Arquivo : {linkArquivo}")
                 if informacao.text.strip() == "Autor(es)":
                     autores = informacao.find_next_sibling().text.strip()
                     print (f"Autor(es) : {autores}")
@@ -74,9 +82,14 @@ for linkAnais in links:
             # Encontra os links para os pdfs.
             print('Encontrando link do paper...')
             try:
-                link = paper.find('a', href=re.compile(r'(.pdf)'))
-                fullLink = "https://anpuh.org.br" + link['href']
-                fullName = os.path.join(pastaEvento, title.replace(' ','_') + '.pdf')
+                arquivolink = paper.find('a', href=re.compile(r'(.pdf)'))
+                link = arquivolink['href']
+                if link.startswith('https://'):
+                    fullLink = link
+                    fullName = os.path.join(pastaEvento, title.replace(' ','_') + '.pdf')
+                else:
+                    fullLink = "https://anpuh.org.br" + link
+                    fullName = os.path.join(pastaEvento, title.replace(' ','_') + '.pdf')
                 if not os.path.exists(fullName):
                     print('Salvando o pdf na pasta...')
                     request.urlretrieve(fullLink, fullName)
