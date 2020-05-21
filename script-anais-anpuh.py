@@ -71,8 +71,8 @@ for linkAnais in links:
                 if informacao.text.strip() == "Autor(es)":
                     autores = informacao.find_next_sibling().text.strip()
                     print (f"Autor(es) : {autores}")
-                listaInterna = [autores, tipo, evento, ano, linkArquivo]
-                listaFinal.append(listaInterna)
+            listaInterna = [autores, tipo, evento, ano, linkArquivo]
+            listaFinal.append(listaInterna)
         if not os.path.exists(pastaEvento):
             os.makedirs(pastaEvento)
         for paper in paperBoxes:    
