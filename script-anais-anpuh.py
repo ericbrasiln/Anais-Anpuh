@@ -38,9 +38,15 @@ for linkAnais in links:
         print('Encontrando todos os papers da página...')
         pastaEvento = os.path.join(pasta, numEvento[1:])
         print('Encontrando todos as informações dos papers da página...')
-        tabelas = soup.find_all(class_="text-overflow")
-        for tabela in tabelas:
-            informacoes = tabela.find_all('dt')
+            
+        if not os.path.exists(pastaEvento):
+            os.makedirs(pastaEvento)
+        for paper in paperBoxes:    
+            # Encontra os títulos de cada paper.
+            title = paper.h2.text
+            title = title.strip().lower().replace('/','-')
+
+            informacoes = paper.find_all('dt')
             tipo = ""
             evento = ""
             ano = ""
@@ -73,12 +79,7 @@ for linkAnais in links:
                     print (f"Autor(es) : {autores}")
             listaInterna = [autores, tipo, evento, ano, linkArquivo]
             listaFinal.append(listaInterna)
-        if not os.path.exists(pastaEvento):
-            os.makedirs(pastaEvento)
-        for paper in paperBoxes:    
-            # Encontra os títulos de cada paper.
-            title = paper.h2.text
-            title = title.strip().lower().replace('/','-')
+
             # Encontra os links para os pdfs.
             print('Encontrando link do paper...')
             try:
@@ -91,7 +92,7 @@ for linkAnais in links:
                     fullLink = "https://anpuh.org.br" + link
                     fullName = os.path.join(pastaEvento, title.replace(' ','_') + '.pdf')
                 if not os.path.exists(fullName):
-                    print('Salvando o pdf na pasta...')
+                    print('Salvando o pdf na pasta...\n')
                     request.urlretrieve(fullLink, fullName)
                 else:
                     print("Arquivo já existe.")
