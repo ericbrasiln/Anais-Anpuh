@@ -5,7 +5,7 @@
 *Projeto de script para web scraping da página de [Anais da Anpuh](https://anpuh.org.br/index.php/documentos/anais).
  Parte de projeto de História Digital desenvolvido no colegiado do curso de Licenciatura em História (CCLHM) da Unilab, campus dos Malês, sob coordenação do professor [Eric Brasil](https://ericbrasiln.github.io/) em parceria com o [Laboratório de Humanidades Digitais da Ufba](http://labhd.ufba.br/).*
 
-*O Script Anais-Anpuh realiza a raspagem dos papers em pdf de todos os Simpósios Nacionais da Anpuh entre 1963 até 2019.*
+*O Script Anais-Anpuh realiza a raspagem dos papers em pdf de todos os Simpósios Nacionais da Anpuh entre 1963 até 2017 (disponíveis atualmente na site).*
 ___
 
 **A ferramenta foi desenvolvida apenas para pesquisas acadêmicas, sem fins lucrativos.**
@@ -38,7 +38,7 @@ Para executar o Script Anais-Anpuh, vc precisa acessar a pasta da ferramenta no 
 
 ### Python
 
-A ferramenta consiste num script escrito em [Python](https://www.python.org/). Esta é uma linguagem de programação que te permite trabalhar rapidamente e integrar diferentes sistemas com maior eficiência.
+A ferramenta consiste num script escrito em [Python 3.8](https://www.python.org/). Esta é uma linguagem de programação que te permite trabalhar rapidamente e integrar diferentes sistemas com maior eficiência.
 Para executar o arquivo .py é preciso instalar o Python3 em seu computador.
 
 [Clique aqui](https://python.org.br/instalacao-windows/) para um tutorial de instalação do Python no Windows, [clique aqui](https://python.org.br/instalacao-linux/) para Linux e [clique aqui](https://python.org.br/instalacao-mac/)
@@ -48,6 +48,11 @@ Após a instalação, vc pode executar o arquivo .py direto do prompt de comando
 
 Exemplo de como executar utilizando o terminal do Linux:
 
+1. Após instalar o Python 3.8, instale as bibliotecas requeridas:
+   ```sh
+   $ pip3 install -r requirements.txt
+   ```
+
 1. Acesse o diretório em que o arquivo .py está salvo:
    ```sh
    $ cd user/local
@@ -55,7 +60,7 @@ Exemplo de como executar utilizando o terminal do Linux:
 
 1. Execute o arquivo usando Python3
    ```sh
-   $ python3 nomedoarquivo.py
+   $ python3.8 script-anais-anpuh.py
    ```
 
 
@@ -67,17 +72,18 @@ Exemplo de como executar utilizando o terminal do Linux:
 [Saiba mais.](https://docs.python.org/pt-br/3/library/os.html)
 - **bs4**: [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) é uma biblioteca Python para extrair
  dados de arquivos HTML e XML.
-- **re**: [Regular Expressions](https://docs.python.org/pt-br/3/library/re.html) é um módulo do Python para operar com expressões regulares. 
+- **re**: [Regular Expressions](https://docs.python.org/pt-br/3/library/re.html) é um módulo do Python para operar com expressões regulares.
+- **pandas**: [Pandas](https://pandas.pydata.org/) é uma biblioteca escrita em Python para manipulação e análise de dados. 
 
 ## Resultados
 
-O script retorna para o usuário **todos os pdfs disponíveis em todas as páginas de todos os Simpósios Nacionais da Anpih desde 1963 até 2019**. São criadas pastas com o número de cada evento para o armazenamento dos arquivos em PDF.
+O script retorna para o usuário **todos os pdfs disponíveis em todas as páginas de todos os Simpósios Nacionais da Anpih desde 1963 até 2017**. São criadas pastas com o número de cada evento para o armazenamento dos arquivos em PDF.
 
 É importante notar que muitos papers não estão com pdf disponível no site, assim como nas edições mais antigas encontramos arquivos que contém vários papers num único PDF.
 
 O script também gera um arquivo **CSV** (*comma-separated values*) contendo os seguintes valores para cada paper: Autor(es)/Instituições, Tipo, Evento, Ano, Link do Arquivo. Esse arquivo pode ser aberto como uma planilha e trabalhado em banco de dados.
 
-O script está funcionando pereitamente. Qualquer alteração no site percebida pelos usuários ou sugestão são bem vindas.
+O script está funcionando pereitamente. Qualquer alteração no site percebida pelos usuários ou sugestões de aprimoramento são bem vindas.
 
 ## Licença
 

@@ -1,0 +1,4 @@
+bs4==0.0.1
+pandas==0.24.2
+requests==2.23.0
+urllib3==1.25.9
