@@ -11,6 +11,7 @@ urlbase = 'https://anpuh.org.br'
 url = 'https://anpuh.org.br/index.php/documentos/anais'
 
 listaFinal =[]
+linkAnterior = ""
 # Acessa a página inicial dos Anais.
 reqopen = Request(url, headers=dicionario)
 req = urlopen(reqopen)
@@ -83,19 +84,23 @@ for linkAnais in links:
             # Encontra os links para os pdfs.
             print('Encontrando link do paper...')
             try:
-                arquivolink = paper.find('a', href=re.compile(r'(.pdf)'))
+                arquivolink = paper.find('a',href=re.compile(r'(.pdf)'))
                 link = arquivolink['href']
-                if link.startswith('https://'):
-                    fullLink = link
-                    fullName = os.path.join(pastaEvento, title.replace(' ','_') + '.pdf')
+                if not link in linkAnterior:
+                    linkAnterior = link
+                    if link.startswith('https://'):
+                        fullLink = link
+                        fullName = os.path.join(pastaEvento, title.replace(' ','_') + '.pdf')
+                    else:
+                        fullLink = "https://anpuh.org.br" + link
+                        fullName = os.path.join(pastaEvento, title.replace(' ','_') + '.pdf')
+                    if not os.path.exists(fullName):
+                        print('Salvando o pdf na pasta...\n')
+                        request.urlretrieve(fullLink, fullName)
+                    else:
+                        print("Arquivo já existe.")
                 else:
-                    fullLink = "https://anpuh.org.br" + link
-                    fullName = os.path.join(pastaEvento, title.replace(' ','_') + '.pdf')
-                if not os.path.exists(fullName):
-                    print('Salvando o pdf na pasta...\n')
-                    request.urlretrieve(fullLink, fullName)
-                else:
-                    print("Arquivo já existe.")
+                    print("PDF desse paper é igual ao do paper anterior.")
             except Exception as e:
                 print (e)
                 link = paper.find('a', href=re.compile(r'(.pdf)'))
