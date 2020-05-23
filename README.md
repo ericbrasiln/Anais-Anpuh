@@ -81,6 +81,8 @@ O script retorna para o usuário **todos os pdfs disponíveis em todas as págin
 
 O script também gera um arquivo **CSV** (*comma-separated values*) contendo os seguintes valores para cada paper: Autor(es)/Instituições, Tipo, Evento, Ano, Link do Arquivo. Esse arquivo pode ser aberto como uma planilha e trabalhado em banco de dados.
 
+![exemplo de csv](images/exemplo-csv.png)
+
 O script está funcionando pereitamente. Qualquer alteração no site percebida pelos usuários ou sugestões de aprimoramento são bem vindas.
 
 ## Licença
