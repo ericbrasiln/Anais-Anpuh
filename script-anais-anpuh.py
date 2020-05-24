@@ -78,7 +78,7 @@ for linkAnais in links:
                 if informacao.text.strip() == "Autor(es)":
                     autores = informacao.find_next_sibling().text.strip()
                     print (f"Autor(es) : {autores}")
-            listaInterna = [autores, tipo, evento, ano, linkArquivo]
+            listaInterna = [autores, title, tipo, evento, ano, linkArquivo]
             listaFinal.append(listaInterna)
 
             # Encontra os links para os pdfs.
@@ -119,6 +119,6 @@ for linkAnais in links:
             print("Final das Páginas de Papers desse evento.")
             acabou = True
 print('Salvando arquivo .csv com todas as informações: autores/instituições, tipo, evento, ano, link do pdf')
-df = pd.DataFrame(listaFinal, columns=['Autor(es)/Instituições', 'Tipo', 'Evento', 'Ano', 'Link do Arquivo'])
+df = pd.DataFrame(listaFinal, columns=['Autor(es)/Instituições', 'Tíulo', 'Tipo', 'Evento', 'Ano', 'Link do Arquivo'])
 df.to_csv('anais-anpuh-infos.csv')
 print('Raspagem completa.')
