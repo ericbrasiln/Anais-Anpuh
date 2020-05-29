@@ -119,6 +119,6 @@ for linkAnais in links:
             print("Final das Páginas de Papers desse evento.")
             acabou = True
 print('Salvando arquivo .csv com todas as informações: autores/instituições, tipo, evento, ano, link do pdf')
-df = pd.DataFrame(listaFinal, columns=['Autor(es)/Instituições', 'Tíulo', 'Tipo', 'Evento', 'Ano', 'Link do Arquivo'])
+df = pd.DataFrame(listaFinal, columns=['Autor(es)/Instituições', 'Título', 'Tipo', 'Evento', 'Ano', 'Link do Arquivo'])
 df.to_csv('anais-anpuh-infos.csv')
 print('Raspagem completa.')
