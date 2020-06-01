@@ -16,7 +16,7 @@ digitais. Sua criação é fruto das reflexões e experiências empíricas de hi
 Defendemos a importância da apropriação, uso, desenvolvimento e aprimoramento de ferramentas digitais para as humanidades, assim como a urgência na sofisticação teórica, metodológica e epistemológica sobre as chamadas Humanidades Digitais.
 
 É crescente o número de repositórios de fontes e dados on-line, assim como o acesso, busca, pesquisa e, muitas vezes, dependência de pesquisadores/as a eles.
-Os Simpósios Nacionais da Anpuh, que aconcetecem bienalmente, têm reunido importantes reflexões sobre as mais variadas perspectivas historiográficas. Por conseguinte, os anais de cada evento constituem um importante repositório para pesquisas nos mais variados campos de estudo.
+Os Simpósios Nacionais da Anpuh, que acontecem bienalmente, têm reunido importantes reflexões sobre as mais variadas perspectivas historiográficas. Por conseguinte, os anais de cada evento constituem um importante repositório para pesquisas nos mais variados campos de estudo.
 ___
 
 ## Índice
@@ -32,7 +32,7 @@ ___
 
 ## Instalação
 
-Para executar o Script Anais-Anpuh, vc precisa acessar a pasta da ferramenta no [GitHub da CCLHM-UNILAB](https://github.com/leofn/LABHDUFBA/tree/master/JusBrasil). Clone ou faça download do repositório e salve na pasta que deseja que os resultados e seus respectivos arquivos sejam armazenados. Antes de executar o script, é preciso preparar seu computador, como mostramos abaixo.
+Para executar o Script Anais-Anpuh, vc precisa acessar a pasta da ferramenta no [GitHub](https://github.com/ericbrasiln/Anais-Anpuh). Clone ou faça download do repositório e salve na pasta que deseja que os resultados e seus respectivos arquivos sejam armazenados. Antes de executar o script, é preciso preparar seu computador, como mostramos abaixo.
 
 ### Python
 
@@ -44,19 +44,17 @@ para Mac.
 
 Após a instalação, vc pode executar o arquivo .py direto do prompt de comando do Windows ou pelo terminal do Linux, ou utilizar as diversas [IDE](https://pt.wikipedia.org/wiki/Ambiente_de_desenvolvimento_integrado) disponíveis.
 
-Exemplo de como executar utilizando o terminal do Linux:
-
-1. Após instalar o Python 3.8, instale as bibliotecas requeridas:
-   ```sh
-   $ pip3 install -r requirements.txt
-   ```
+Exemplo de como executar utilizando o terminal do Linux, após instalar o Python3.8:
 
 1. Acesse o diretório em que o arquivo .py está salvo:
    ```sh
    $ cd user/local
    ```
-
-1. Execute o arquivo usando Python3
+1. Instale as bibliotecas requeridas:
+   ```sh
+   $ pip3 install -r requirements.txt
+   ```
+1. Execute o arquivo usando Python3.8
    ```sh
    $ python3.8 script-anais-anpuh.py
    ```
@@ -85,10 +83,10 @@ O script também gera um arquivo **CSV** (*comma-separated values*) contendo os 
 
 ![exemplo de csv](images/exemplo-csv.png)
 
-O script está funcionando pereitamente. Qualquer alteração no site percebida pelos usuários ou sugestões de aprimoramento são bem vindas.
+O script está funcionando perfeitamente. Qualquer alteração no site percebida pelos usuários ou sugestões de aprimoramento são bem vindas.
 
 ## Licença
 
 MIT licensed
 
-Copyright (C) 2020 [Eric Brasil](https://github.com/ericbrasiln), [Gabriel Andrade](https://github.com/gabrielsandrade)
+Copyright (C) 2020 [Eric Brasil](https://github.com/ericbrasiln), [Gabriel Andrade](https://github.com/gabrielsandrade), [LABHD-UFBA](http://labhd.ufba.br/)
