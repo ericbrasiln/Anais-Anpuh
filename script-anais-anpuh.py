@@ -5,6 +5,8 @@ import re
 import os
 import urllib
 import pandas as pd
+import requests
+import wget
 
 dicionario = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36'}
 urlbase = 'https://anpuh.org.br'
@@ -92,11 +94,18 @@ for linkAnais in links:
                         fullLink = link
                         fullName = os.path.join(pastaEvento, title.replace(' ','_') + '.pdf')
                     else:
-                        fullLink = "https://anpuh.org.br" + link
+                        fullLink = "https://anpuh.org.br" + link            
+                        alterar = ['"', '*', ':', '<', '>', '?', '/', "\\", '|' , '_' , '@' , '+', '...']
+                        for x in alterar:
+                            title = title.replace(x, '')
                         fullName = os.path.join(pastaEvento, title.replace(' ','_') + '.pdf')
                     if not os.path.exists(fullName):
                         print('Salvando o pdf na pasta...\n')
-                        request.urlretrieve(fullLink, fullName)
+                        try:
+                            #request.urlretrieve(fullLink, fullName)
+                            wget.download(fullLink, out=fullName)
+                        except Exception as e:
+                            print(e)
                     else:
                         print("Arquivo já existe.")
                 else:
