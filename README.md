@@ -22,12 +22,12 @@ ___
 ## Índice
 
 - [Script Anais-Anpuh](#script-anais-anpuh)
-  - [Índice](#%c3%8dndice)
-  - [Instalação](#instala%c3%a7%c3%a3o)
+  - [Índice](#índice)
+  - [Instalação](#instalação)
     - [Python](#python)
-      - [Bibliotecas e módulos](#bibliotecas-e-m%c3%b3dulos)
+      - [Bibliotecas e módulos](#bibliotecas-e-módulos)
   - [Resultados](#resultados)
-  - [Licença](#licen%c3%a7a)
+  - [Licença](#licença)
 
 
 ## Instalação
@@ -69,7 +69,8 @@ Exemplo de como executar utilizando o terminal do Linux, após instalar o Python
 - **bs4**: [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) é uma biblioteca Python para extrair
  dados de arquivos HTML e XML.
 - **re**: [Regular Expressions](https://docs.python.org/pt-br/3/library/re.html) é um módulo do Python para operar com expressões regulares.
-- **pandas**: [Pandas](https://pandas.pydata.org/) é uma biblioteca escrita em Python para manipulação e análise de dados. 
+- **pandas**: [Pandas](https://pandas.pydata.org/) é uma biblioteca escrita em Python para manipulação e análise de dados.
+- - **wget**: [Wget](https://pypi.org/project/wget/) é uma biblioteca escrita em Python para realizar downloads. 
 
 ## Resultados
 
