@@ -1,5 +1,8 @@
 <p align="center"><img src="https://github.com/ericbrasiln/Anais-Anpuh/blob/master/images/logos.png"/></p>
 
+[![DOI:10.13140/RG.2.2.34653.03048](https://zenodo.org/badge/DOI/10.13140/RG.2.2.34653.03048.svg)](https://doi.org/10.1007/978-3-319-76207-4_15)
+ [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+
 # Script Anais-Anpuh
 
 *Projeto de script para web scraping da página de [Anais da Associação Nacional de História - Anpuh](https://anpuh.org.br/index.php/documentos/anais).
