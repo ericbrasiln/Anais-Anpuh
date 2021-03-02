@@ -34,7 +34,7 @@ def get_events_urls():
     pass
 
 
-def get_event_number(event_url):
+def get_event_id(event_url):
     """Extrai número do evento com base em seu URL."""
     pass
 
