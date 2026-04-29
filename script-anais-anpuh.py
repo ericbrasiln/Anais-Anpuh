@@ -322,16 +322,34 @@ def scrape_event(event: dict, output_dir: Path, downloaded_urls: set[str],
             downloaded_urls.add(file_link)
 
             # Nome do arquivo: últimos_nomes_autores_ano.pdf
+            # Colisão de nome → sufixo _2, _3, etc.
+            # Re-run → se arquivo já existe e é válido, pula download
             last_names = extract_last_names(info["autores"])
             year = info.get("ano", "")
             filename_parts = [last_names]
             if year:
                 filename_parts.append(year)
-            filename = "_".join(filename_parts) + ".pdf"
+            base_name = "_".join(filename_parts)
 
-            dest = event_folder / filename
+            dest = event_folder / f"{base_name}.pdf"
+            counter = 2
+            while dest.exists():
+                if dest.stat().st_size > 100:
+                    # Arquivo válido já existe — verificar se é mesmo URL ou outro autor
+                    # Se é o primeiro colidente (counter==2), tentar nome com sufixo
+                    # Se o sufixo também existe, continuar incrementando
+                    filename = f"{base_name}_{counter}.pdf"
+                    dest = event_folder / filename
+                    counter += 1
+                else:
+                    # Arquivo corrompido — remover e reusar este nome
+                    dest.unlink(missing_ok=True)
+                    break
+
+            # Se após resolver colisão o arquivo existe (válidos já preenchidos até o fim),
+            # significa que todos os nomes com esse base já foram baixados — pular
             if dest.exists():
-                logging.debug("Arquivo já existe: %s", dest.name)
+                logging.debug("Todos os nomes para '%s' já existem — pulando.", base_name)
                 continue
 
             success = download_pdf(file_link, dest)
