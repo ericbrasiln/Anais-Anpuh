@@ -112,10 +112,18 @@ O script retorna para o usuário **os pdfs disponíveis nas páginas dos Simpós
 
 É importante notar que muitos papers não estão com pdf disponível no site, assim como nas edições mais antigas encontramos arquivos que contém vários papers num único PDF.
 
-O script também gera um arquivo **CSV** e/ou **JSON** contendo os seguintes valores para cada paper: Autor(es)/Instituições, Título, Tipo, Evento, Ano, Link do Arquivo. Esses arquivos podem ser abertos como planilha (CSV) ou processados programaticamente (JSON) e trabalhados em banco de dados.
+O script também gera um arquivo **CSV** e/ou **JSON** contendo os seguintes valores para cada paper: Autor(es)/Instituições, Título, Tipo, Evento, Ano, Link do Arquivo, PDF Salvo. Esses arquivos podem ser abertos como planilha (CSV) ou processados programaticamente (JSON) e trabalhados em banco de dados.
+
+- **PDF Salvo**: nome do arquivo PDF baixado (ex: `silva_2023.pdf`, `santos_2023_2.pdf`). Quando papers compartilham o mesmo PDF (mesma URL), todos referenciam o mesmo arquivo. Nos casos de colisão de nomes, um sufixo `_2`, `_3` etc. é adicionado. Este campo fica vazio quando a opção `--no-download` é utilizada.
 
 
 ## Novidades
+
+### v2.1 — Coluna PDF Salvo
+
+- **Coluna "PDF Salvo"**: novo campo nos metadados (CSV/JSON) com o nome do arquivo PDF baixado. Permite vincular diretamente cada paper ao seu arquivo salvo em disco.
+- **Rastreamento URL → arquivo**: papers que compartilham o mesmo PDF (URL duplicada) referenciam o mesmo nome de arquivo.
+- **Campo vazio com `--no-download`**: quando não há download, a coluna permanece vazia.
 
 ### v2.0 — Refatoração completa
 
