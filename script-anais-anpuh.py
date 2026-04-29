@@ -225,6 +225,7 @@ def parse_paper(paper_box, event_code: str) -> dict | None:
         "evento": event_code,
         "ano": "",
         "file_link": "",
+        "pdf_salvo": "",
     }
 
     dts = paper_box.find_all("dt")
@@ -268,7 +269,8 @@ def parse_paper(paper_box, event_code: str) -> dict | None:
 
 
 def scrape_event(event: dict, output_dir: Path, downloaded_urls: set[str],
-                 failed_downloads: list[dict], skip_download: bool = False) -> list[dict]:
+                 failed_downloads: list[dict], url_to_filename: dict[str, str],
+                 skip_download: bool = False) -> list[dict]:
     """Raspa todos os papers de um evento (incluindo paginação)."""
     event_url = event["url"]
     site_id = event["site_id"]
@@ -318,6 +320,9 @@ def scrape_event(event: dict, output_dir: Path, downloaded_urls: set[str],
             # Deduplicação por URL
             if file_link in downloaded_urls:
                 logging.debug("PDF já baixado (URL duplicada): %s", file_link)
+                # Copiar nome do arquivo do paper original que baixou este PDF
+                if file_link in url_to_filename:
+                    info["pdf_salvo"] = url_to_filename[file_link]
                 continue
             downloaded_urls.add(file_link)
 
@@ -353,7 +358,11 @@ def scrape_event(event: dict, output_dir: Path, downloaded_urls: set[str],
                 continue
 
             success = download_pdf(file_link, dest)
-            if not success:
+            if success:
+                pdf_filename = dest.name
+                info["pdf_salvo"] = pdf_filename
+                url_to_filename[file_link] = pdf_filename
+            else:
                 failed_downloads.append({
                     "titulo": info["titulo"],
                     "autores": info["autores"],
@@ -402,7 +411,8 @@ def save_outputs(papers: list[dict], output_format: str = "csv", output_dir: Pat
 
     ts = get_timestamp()
     df = pd.DataFrame(papers)
-    df.columns = ["Autor(es)/Instituições", "Título", "Tipo", "Evento", "Ano", "Link do Arquivo"]
+    df.columns = ["Autor(es)/Instituições", "Título", "Tipo", "Evento", "Ano",
+                   "Link do Arquivo", "PDF Salvo"]
 
     base_dir = output_dir or Path(".")
 
@@ -600,13 +610,14 @@ def main():
     # 6. Raspagem
     all_papers = []
     downloaded_urls: set[str] = set()
+    url_to_filename: dict[str, str] = {}
     failed_downloads: list[dict] = []
 
     for i, event in enumerate(filtered, 1):
         logging.info("[%d/%d] Raspando: %s", i, len(filtered), event["text"])
         event_papers = scrape_event(
             event, output_dir, downloaded_urls, failed_downloads,
-            skip_download=args.no_download
+            url_to_filename, skip_download=args.no_download
         )
         all_papers.extend(event_papers)
 
