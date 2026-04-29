@@ -1,78 +1,90 @@
-from bs4 import BeautifulSoup
+"""
+Módulo depreciado — funcionalidade incorporada em script-anais-anpuh.py.
+Mantido apenas para compatibilidade retroativa.
+"""
+import warnings
+warnings.warn(
+    "infos_paper está depreciado. Use as funções de script-anais-anpuh.py diretamente.",
+    DeprecationWarning,
+    stacklevel=2,
+)
+
 import os
 import re
-import wget
+import requests
 
-def get_links(paper, event_folder, title, previous_link):
-    """Encontrar o link e realizar o download do PDF."""
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+    )
+}
+
+def sanitize_filename(name):
+    name = name.strip().lower().replace("/", "-").replace(" ", "_")
+    for c in ['"', '*', ':', '<', '>', '?', '/', "\\", '|', '@', '+', '...']:
+        name = name.replace(c, "")
+    return name[:200]
+
+def get_links(paper, event_folder, title, previous_link, downloaded_urls=None):
+    if downloaded_urls is None:
+        downloaded_urls = set()
     try:
-        link_pdf = paper.find('a',href=re.compile(r'(.pdf)'))
+        link_pdf = paper.find('a', href=re.compile(r'(\.pdf)'))
+        if not link_pdf:
+            return
         link = link_pdf['href']
-        if not link in previous_link:
-            previous_link = link
-            if link.startswith('https://'):
-                full_link = link
-                full_name = os.path.join(event_folder, title.replace(' ','_') + '.pdf')
-            else:
-                full_link = "https://anpuh.org.br" + link            
-                change = ['"', '*', ':', '<', '>', '?', '/', "\\", '|' , '_' , '@' , '+', '...']
-                for x in change:
-                    title = title.replace(x, '')
-                full_name = os.path.join(event_folder, title.replace(' ','_') + '.pdf')
-            if not os.path.exists(full_name):
-                print('Salvando o pdf na pasta...\n')
-                try:
-                    wget.download(full_link, out=full_name)
-                except Exception as e:
-                    print(e)
-            else:
-                print("Arquivo já existe.\n")
+        if not link.lower().endswith('.pdf'):
+            link += '.pdf'
+        if link.startswith('https://'):
+            full_link = link
         else:
-            print("PDF desse paper é igual ao do paper anterior.\n")
+            full_link = "https://anpuh.org.br" + link
+
+        if full_link in downloaded_urls:
+            return
+        downloaded_urls.add(full_link)
+
+        safe_title = sanitize_filename(title)
+        full_name = os.path.join(event_folder, f"{safe_title}.pdf")
+
+        if not os.path.exists(full_name):
+            try:
+                resp = requests.get(full_link, headers=HEADERS, timeout=60)
+                resp.raise_for_status()
+                with open(full_name, 'wb') as f:
+                    f.write(resp.content)
+            except Exception as e:
+                print(f"Erro no download: {e}")
     except Exception as e:
-        print(e)
-        link = paper.find('a', href=re.compile(r'(.pdf)'))
-        link = None
-        print('Paper sem pdf disponível para download.\n')
+        print(f"Erro ao processar paper: {e}")
 
-
-def get_infos(paper_boxes, base_url, final_list, event_folder, previous_link):
-    """Raspa as informações de cada paper."""
-    for paper in paper_boxes:    
-        title = paper.h2.text
-        title = title.strip().lower().replace('/','-')
-        infos = paper.find_all('dt')
-        tipo = ""
-        event = ""
-        year = ""
-        authors = ""
-        file_link = ""
-        for info in infos:
-            if info.text.strip() == "Tipo":
-                tipo = info.find_next_sibling().text.strip()
-                print (f"Tipo : {tipo}")
-            if info.text.strip() == "Evento":
-                event = info.find_next_sibling().text.strip()
-                print (f"Evento : {event}")
-            if info.text.strip() == "Ano":
-                year = info.find_next_sibling().text.strip()
-                print (f"Ano : {year}")
-            if info.text.strip() == "Arquivo":
-                file_tag = info.find_next_sibling().a['href']
-                file_link = base_url + file_tag
-                print (f"Arquivo : {file_link}")
-            if info.text.strip() == "PDF LINK":
-                file_tag = info.find_next_sibling().a['href']
-                if file_tag.startswith('https://') == True:
-                    file_link = file_tag
-                    print (f"Arquivo : {file_link}")
-                else:
-                    file_link = base_url + file_tag
-                    print (f"Arquivo : {file_link}")
-            if info.text.strip() == "Autor(es)":
-                authors = info.find_next_sibling().text.strip()
-                print (f"\nAutor(es) : {authors}")
-        info_list = [authors, title, tipo, event, year, file_link]
-        final_list.append(info_list)
-        print('Encontrando link do paper...')
-        get_links(paper, event_folder, title, previous_link)
+def get_infos(paper_boxes, base_url, final_list, event_folder, previous_link, downloaded_urls=None):
+    if downloaded_urls is None:
+        downloaded_urls = set()
+    for paper in paper_boxes:
+        title = paper.h2.text.strip() if paper.h2 else ""
+        info = {"autores": "", "titulo": title, "tipo": "", "evento": "", "ano": "", "file_link": ""}
+        dts = paper.find_all('dt')
+        for dt in dts:
+            label = dt.text.strip()
+            dd = dt.find_next_sibling()
+            if dd is None:
+                continue
+            if label == "Autor(es)":
+                info["autores"] = dd.text.strip()
+            elif label == "Tipo":
+                info["tipo"] = dd.text.strip()
+            elif label == "Evento":
+                info["evento"] = dd.text.strip()
+            elif label == "Ano":
+                info["ano"] = dd.text.strip()
+            elif label in ("Arquivo", "PDF LINK"):
+                a_tag = dd.find('a', href=True)
+                if a_tag:
+                    href = a_tag['href']
+                    if not href.lower().endswith('.pdf'):
+                        href += '.pdf'
+                    info["file_link"] = href if href.startswith('https://') else base_url + href
+        final_list.append([info["autores"], info["titulo"], info["tipo"], info["evento"], info["ano"], info["file_link"]])
+        get_links(paper, event_folder, info["titulo"], previous_link, downloaded_urls)

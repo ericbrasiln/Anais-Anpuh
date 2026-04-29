@@ -129,3 +129,10 @@ dmypy.json
 
 # to-do list
 todo.md
+
+# Output directories
+Anais_Anpuh/
+
+# Output files
+anais-anpuh-infos.csv
+anais-anpuh-infos.json
